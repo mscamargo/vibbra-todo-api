@@ -1,0 +1,21 @@
+services:
+  app:
+    image: node:lts-alpine
+    user: 1000:1000
+    working_dir: /app
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: npm run start:dev
+
+  pg:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vibbra
+    ports:
+      - 5432:5432
