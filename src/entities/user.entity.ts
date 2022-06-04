@@ -38,6 +38,10 @@ export class User {
     this.password = this.hash(this.password, this.passwordSalt);
   }
 
+  comparePassword(plainPassword: string): boolean {
+    return this.password === this.hash(plainPassword, this.passwordSalt);
+  }
+
   private hash(value: string, salt: string): string {
     return crypto.pbkdf2Sync(value, salt, 1000, 64, 'sha512').toString('hex');
   }

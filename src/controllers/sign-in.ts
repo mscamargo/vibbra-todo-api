@@ -20,10 +20,8 @@ export class SignInController {
     if (!user) {
       throw new UnauthorizedException();
     }
-    const hashedPassword = crypto
-      .pbkdf2Sync(body.password, user.passwordSalt, 1000, 64, 'sha512')
-      .toString('hex');
-    if (user.password !== hashedPassword) {
+    const passwordMatch = user.comparePassword(body.password);
+    if (!passwordMatch) {
       throw new UnauthorizedException();
     }
     const { id, name, email } = user;
