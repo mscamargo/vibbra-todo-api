@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 
 import { SignUpDTO } from '@/dtos';
@@ -10,6 +10,7 @@ import { User } from '@/entities';
 export class SignUpController {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post()
@@ -21,11 +22,9 @@ export class SignUpController {
         password: body.password,
       }),
     );
+    const accessToken = this.jwtService.sign({ id, name, email });
     return {
-      accessToken: jwt.sign(
-        { id, name, email },
-        process.env.ACCESS_TOKEN_SECRET,
-      ),
+      accessToken,
     };
   }
 }

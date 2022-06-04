@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 
 import { SignInDTO } from '@/dtos';
@@ -10,6 +10,7 @@ import { User } from '@/entities';
 export class SignInController {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post()
@@ -23,10 +24,7 @@ export class SignInController {
       throw new UnauthorizedException();
     }
     const { id, name, email } = user;
-    const accessToken = jwt.sign(
-      { id, name, email },
-      process.env.ACCESS_TOKEN_SECRET,
-    );
+    const accessToken = this.jwtService.sign({ id, name, email });
     return {
       accessToken,
     };

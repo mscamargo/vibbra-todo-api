@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { controllers } from './controllers';
 import { entities } from './entities';
+import { JwtStrategy } from './jwt-passport-strategy';
 
 @Module({
   imports: [
@@ -17,8 +19,11 @@ import { entities } from './entities';
       synchronize: true,
     }),
     TypeOrmModule.forFeature(entities),
+    JwtModule.register({
+      secret: 'abc123',
+    }),
   ],
   controllers,
-  providers: [],
+  providers: [JwtStrategy],
 })
 export class AppModule {}
