@@ -1,27 +1,20 @@
 import * as crypto from 'node:crypto';
 
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 
-import { AppService } from './app.service';
-import { User } from './entities';
+import { User } from '@/entities';
 
 @Controller()
-export class AppController {
+export class SignUpController {
   constructor(
-    private readonly appService: AppService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Post('/v1/sign-up')
-  async signUp(@Body() body: any) {
+  async handle(@Body() body: any) {
     const passwordSalt = crypto.randomBytes(16).toString('hex');
     const hashedPassword = crypto
       .pbkdf2Sync(body.password, passwordSalt, 1000, 64, 'sha512')

@@ -12,7 +12,7 @@ import { User } from '@/entities';
 
 process.env.ACCESS_TOKEN_SECRET = 'abc123';
 
-describe('AppController (e2e)', () => {
+describe('Sign Up (e2e)', () => {
   let app: INestApplication;
   let userRepository: Repository<User>;
 
@@ -30,13 +30,6 @@ describe('AppController (e2e)', () => {
 
   afterAll(() => {
     app.close();
-  });
-
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
   });
 
   it('/v1/sign-up (POST)', async () => {
