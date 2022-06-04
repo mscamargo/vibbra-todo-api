@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { User } from './user.entity';
+import { entities } from './entities';
 
 @Module({
   imports: [
@@ -13,10 +13,10 @@ import { User } from './user.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'vibbra_test',
-      entities: [User],
+      entities,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature(entities),
   ],
   controllers: [AppController],
   providers: [AppService],

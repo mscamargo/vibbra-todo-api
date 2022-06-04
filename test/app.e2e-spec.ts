@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import * as jwt from 'jsonwebtoken';
 import { AppModule } from '../src/app.module';
 import { Repository } from 'typeorm';
-import { User } from '../src/user.entity';
+import { User } from '../src/entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as crypto from 'node:crypto';
 process.env.ACCESS_TOKEN_SECRET = 'abc123';

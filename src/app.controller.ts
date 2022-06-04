@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import * as jwt from 'jsonwebtoken';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User } from './entities';
 import { Repository } from 'typeorm';
 import * as crypto from 'node:crypto';
 
