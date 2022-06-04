@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 
+import { SignUpDTO } from '@/dtos';
 import { User } from '@/entities';
 
 @Controller()
@@ -14,7 +15,7 @@ export class SignUpController {
   ) {}
 
   @Post('/v1/sign-up')
-  async handle(@Body() body: any) {
+  async handle(@Body() body: SignUpDTO) {
     const passwordSalt = crypto.randomBytes(16).toString('hex');
     const hashedPassword = crypto
       .pbkdf2Sync(body.password, passwordSalt, 1000, 64, 'sha512')
