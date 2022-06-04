@@ -16,22 +16,18 @@ export class SignUpController {
 
   @Post()
   async handle(@Body() body: SignUpDTO) {
-    const passwordSalt = crypto.randomBytes(16).toString('hex');
-    const hashedPassword = crypto
-      .pbkdf2Sync(body.password, passwordSalt, 1000, 64, 'sha512')
-      .toString('hex');
-    const { id, name, email } = await this.userRepository.save({
-      name: body.name,
-      email: body.email,
-      password: hashedPassword,
-      passwordSalt,
-    });
+    const { id, name, email } = await this.userRepository.save(
+      new User({
+        name: body.name,
+        email: body.email,
+        password: body.password,
+      }),
+    );
     return {
       accessToken: jwt.sign(
         { id, name, email },
         process.env.ACCESS_TOKEN_SECRET,
       ),
-      name: body.name,
     };
   }
 }
