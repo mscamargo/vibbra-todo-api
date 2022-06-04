@@ -8,13 +8,13 @@ import { Repository } from 'typeorm';
 import { SignUpDTO } from '@/dtos';
 import { User } from '@/entities';
 
-@Controller()
+@Controller('/v1/sign-up')
 export class SignUpController {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  @Post('/v1/sign-up')
+  @Post()
   async handle(@Body() body: SignUpDTO) {
     const passwordSalt = crypto.randomBytes(16).toString('hex');
     const hashedPassword = crypto
