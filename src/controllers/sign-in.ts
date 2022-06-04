@@ -1,5 +1,3 @@
-import * as crypto from 'node:crypto';
-
 import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as jwt from 'jsonwebtoken';
