@@ -1,12 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import * as jwt from 'jsonwebtoken';
-import { AppModule } from '@/app.module';
-import { Repository } from 'typeorm';
-import { User } from '@/entities';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import * as crypto from 'node:crypto';
+
+import { INestApplication } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import * as jwt from 'jsonwebtoken';
+import * as request from 'supertest';
+import { Repository } from 'typeorm';
+
+import { AppModule } from '@/app.module';
+import { User } from '@/entities';
+
 process.env.ACCESS_TOKEN_SECRET = 'abc123';
 
 describe('AppController (e2e)', () => {

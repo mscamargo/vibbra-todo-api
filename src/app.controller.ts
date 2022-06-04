@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { AppService } from './app.service';
-import * as jwt from 'jsonwebtoken';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities';
-import { Repository } from 'typeorm';
 import * as crypto from 'node:crypto';
+
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as jwt from 'jsonwebtoken';
+import { Repository } from 'typeorm';
+
+import { AppService } from './app.service';
+import { User } from './entities';
 
 @Controller()
 export class AppController {
