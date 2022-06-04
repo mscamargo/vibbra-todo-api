@@ -17,7 +17,7 @@ describe('/v1/sign-up (POST)', () => {
   let app: INestApplication;
   let userRepository: Repository<User>;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -27,6 +27,9 @@ describe('/v1/sign-up (POST)', () => {
     await app.init();
 
     userRepository = app.get<Repository<User>>(getRepositoryToken(User));
+  });
+
+  beforeEach(async () => {
     await userRepository.clear();
   });
 
