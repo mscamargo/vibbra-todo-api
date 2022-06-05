@@ -30,7 +30,7 @@ describe('/v1/sign-in (POST)', () => {
   });
 
   beforeEach(async () => {
-    await userRepository.clear();
+    await userRepository.query('DELETE FROM "user";');
   });
 
   afterAll(() => {
